@@ -1,0 +1,213 @@
+{
+  "entities": {
+    "StudentProfile": {
+      "title": "StudentProfile",
+      "description": "Verified student account profile, student ID verification metadata, lifetime performance metrics, and spendable reward points.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID of the student." },
+        "displayName": { "type": "string", "description": "Student full name extracted from Student ID card." },
+        "schoolName": { "type": "string", "description": "School, college, or institution name." },
+        "studentIdNumber": { "type": "string", "description": "Verified student ID card number." },
+        "studentIdHash": { "type": "string", "description": "SHA-256 verification hash of student ID details." },
+        "gradeLevel": { "type": "string", "description": "Student age group or academic level." },
+        "verificationStatus": { "type": "string", "enum": ["verified", "pending"], "description": "Verification state of the student ID card." },
+        "rewardPoints": { "type": "integer", "description": "Current spendable League Points balance." },
+        "totalScore": { "type": "integer", "description": "Cumulative correct GK answers across all official rounds." },
+        "tournamentsCompleted": { "type": "integer", "description": "Count of official daily tournaments completed." },
+        "currentStreak": { "type": "integer", "description": "Current consecutive daily tournament streak." },
+        "bestStreak": { "type": "integer", "description": "Longest daily tournament streak achieved." },
+        "lastPlayedDate": { "type": "string", "description": "Last official tournament date played (YYYY-MM-DD)." },
+        "adRewardCountToday": { "type": "integer", "description": "Number of rewarded ads watched today (max 3)." },
+        "adRewardDate": { "type": "string", "description": "Date key for adRewardCountToday (YYYY-MM-DD)." },
+        "categoryStats": { "type": "object", "description": "Map of GK category name to correct/total accuracy counts." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp written via FieldValue.serverTimestamp()." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp written via FieldValue.serverTimestamp()." }
+      },
+      "required": [
+        "uid",
+        "displayName",
+        "schoolName",
+        "studentIdNumber",
+        "studentIdHash",
+        "gradeLevel",
+        "verificationStatus",
+        "rewardPoints",
+        "totalScore",
+        "tournamentsCompleted",
+        "currentStreak",
+        "bestStreak",
+        "adRewardCountToday",
+        "categoryStats",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "DailyTournament": {
+      "title": "DailyTournament",
+      "description": "Shared daily 50-question, 25-minute AI-generated Tamil General Knowledge timed exam for a specific date.",
+      "type": "object",
+      "properties": {
+        "dateKey": { "type": "string", "description": "ISO date key YYYY-MM-DD." },
+        "title": { "type": "string", "description": "Daily Cup title." },
+        "theme": { "type": "string", "description": "Daily focus theme." },
+        "questions": { "type": "array", "description": "List of 50 structured multiple-choice GK question maps." },
+        "createdByUid": { "type": "string", "description": "UID of first verified student who triggered generation." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp written via FieldValue.serverTimestamp()." }
+      },
+      "required": ["dateKey", "title", "theme", "questions", "createdByUid", "createdAt"]
+    },
+    "TournamentSubmission": {
+      "title": "TournamentSubmission",
+      "description": "Public daily leaderboard entry recording negative-marked score, pass status (pass mark 35/50), rank-tier points, server-verified submission timestamp, and completion speed.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Submitting student UID." },
+        "dateKey": { "type": "string", "description": "Tournament date key YYYY-MM-DD." },
+        "monthKey": { "type": "string", "description": "Tournament month key YYYY-MM." },
+        "studentName": { "type": "string", "description": "Verified student display name." },
+        "schoolName": { "type": "string", "description": "Verified school/institution name." },
+        "gradeLevel": { "type": "string", "description": "Student level label." },
+        "score": { "type": "number", "description": "Net score after negative marking (+1 correct, -0.25 wrong, 0 skipped)." },
+        "correctCount": { "type": "integer", "description": "Count of correct answers (0..50)." },
+        "wrongCount": { "type": "integer", "description": "Count of wrong answers (0..50)." },
+        "unansweredCount": { "type": "integer", "description": "Count of skipped answers (0..50)." },
+        "totalQuestions": { "type": "integer", "description": "Total questions in tournament (50)." },
+        "passed": { "type": "boolean", "description": "True if net score >= 35 pass mark." },
+        "rank": { "type": "integer", "description": "Provisional daily rank at submission time." },
+        "durationMillis": { "type": "integer", "description": "Elapsed finish time in milliseconds (max 25 minutes)." },
+        "pointsEarned": { "type": "integer", "description": "Rank-tier points: 1-10=50, 11-20=20, 21-30=10, 31+=5, fail=0." },
+        "visibility": { "type": "string", "enum": ["public_leaderboard"], "description": "Explicit public leaderboard visibility marker." },
+        "submittedAt": { "type": "string", "format": "date-time", "description": "Server timestamp written via FieldValue.serverTimestamp() for first-to-submit priority." }
+      },
+      "required": [
+        "uid",
+        "dateKey",
+        "monthKey",
+        "studentName",
+        "schoolName",
+        "gradeLevel",
+        "score",
+        "correctCount",
+        "wrongCount",
+        "unansweredCount",
+        "totalQuestions",
+        "passed",
+        "rank",
+        "durationMillis",
+        "pointsEarned",
+        "visibility",
+        "submittedAt"
+      ]
+    },
+    "MonthlyRanking": {
+      "title": "MonthlyRanking",
+      "description": "Aggregated monthly leaderboard standing used to award monthly top-scorer certificates and prizes.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Student UID." },
+        "monthKey": { "type": "string", "description": "Month key YYYY-MM." },
+        "studentName": { "type": "string", "description": "Verified student display name." },
+        "schoolName": { "type": "string", "description": "Verified school/institution name." },
+        "gradeLevel": { "type": "string", "description": "Student level label." },
+        "monthlyScore": { "type": "integer", "description": "Cumulative rank-tier tournament points earned in this month." },
+        "tournamentsPlayed": { "type": "integer", "description": "Number of daily tournaments finished in this month." },
+        "totalDurationMillis": { "type": "integer", "description": "Cumulative completion duration in milliseconds." },
+        "visibility": { "type": "string", "enum": ["public_leaderboard"], "description": "Explicit public leaderboard visibility marker." },
+        "lastSubmittedAt": { "type": "string", "format": "date-time", "description": "Latest official submission server timestamp." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp written via FieldValue.serverTimestamp()." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp written via FieldValue.serverTimestamp()." }
+      },
+      "required": [
+        "uid",
+        "monthKey",
+        "studentName",
+        "schoolName",
+        "gradeLevel",
+        "monthlyScore",
+        "tournamentsPlayed",
+        "totalDurationMillis",
+        "visibility",
+        "lastSubmittedAt",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "QuizAttempt": {
+      "title": "QuizAttempt",
+      "description": "Private student quiz answer breakdown stored under the owning student document for post-quiz learning review.",
+      "type": "object",
+      "properties": {
+        "dateKey": { "type": "string", "description": "Tournament date key YYYY-MM-DD." },
+        "score": { "type": "number", "description": "Net score after negative marking." },
+        "correctCount": { "type": "integer", "description": "Correct answer count." },
+        "wrongCount": { "type": "integer", "description": "Wrong answer count." },
+        "unansweredCount": { "type": "integer", "description": "Skipped answer count." },
+        "totalQuestions": { "type": "integer", "description": "Total questions count (50)." },
+        "passed": { "type": "boolean", "description": "True if score >= 35 pass mark." },
+        "rank": { "type": "integer", "description": "Rank achieved at submission." },
+        "durationMillis": { "type": "integer", "description": "Elapsed finish duration in milliseconds." },
+        "pointsEarned": { "type": "integer", "description": "Rank-tier points awarded (0 if failed)." },
+        "selectedAnswers": { "type": "array", "description": "List of selected option indices per question (-1 if skipped)." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp written via FieldValue.serverTimestamp()." }
+      },
+      "required": [
+        "dateKey",
+        "score",
+        "correctCount",
+        "wrongCount",
+        "unansweredCount",
+        "totalQuestions",
+        "passed",
+        "rank",
+        "durationMillis",
+        "pointsEarned",
+        "selectedAnswers",
+        "createdAt"
+      ]
+    },
+    "RewardClaim": {
+      "title": "RewardClaim",
+      "description": "Immutable redemption receipt for point-claimed gift cards, tech accessories, and monthly winner certificates.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Owning student UID." },
+        "rewardId": { "type": "string", "description": "Catalog reward identifier." },
+        "rewardTitle": { "type": "string", "description": "Human-readable reward title." },
+        "rewardCategory": { "type": "string", "enum": ["gift_card", "tech_accessory", "winner_certificate"], "description": "Category of claimed reward." },
+        "pointsCost": { "type": "integer", "description": "League Points redeemed for this claim." },
+        "claimCode": { "type": "string", "description": "Unique redemption or certificate verification code." },
+        "status": { "type": "string", "enum": ["confirmed", "issued"], "description": "Fulfillment status of the claim." },
+        "monthKey": { "type": "string", "description": "Month associated with claim or certificate." },
+        "claimedAt": { "type": "string", "format": "date-time", "description": "Server timestamp written via FieldValue.serverTimestamp()." }
+      },
+      "required": ["uid", "rewardId", "rewardTitle", "rewardCategory", "pointsCost", "claimCode", "status", "monthKey", "claimedAt"]
+    }
+  },
+  "firestore": {
+    "/students/{uid}": {
+      "schema": { "$ref": "#/entities/StudentProfile" },
+      "description": "Private student profile and verified ID metadata owned strictly by {uid}."
+    },
+    "/students/{uid}/attempts/{dateKey}": {
+      "schema": { "$ref": "#/entities/QuizAttempt" },
+      "description": "Private daily quiz answer breakdown owned strictly by {uid}."
+    },
+    "/students/{uid}/reward_claims/{claimId}": {
+      "schema": { "$ref": "#/entities/RewardClaim" },
+      "description": "Private reward redemption receipts and winner certificates owned strictly by {uid}."
+    },
+    "/daily_tournaments/{dateKey}": {
+      "schema": { "$ref": "#/entities/DailyTournament" },
+      "description": "Shared immutable daily 50-question GK exam keyed by ISO date."
+    },
+    "/tournament_submissions/{submissionId}": {
+      "schema": { "$ref": "#/entities/TournamentSubmission" },
+      "description": "Public daily speed leaderboard entries keyed by {dateKey}_{uid}."
+    },
+    "/monthly_rankings/{rankingId}": {
+      "schema": { "$ref": "#/entities/MonthlyRanking" },
+      "description": "Public monthly championship leaderboard entries keyed by {monthKey}_{uid}."
+    }
+  }
+}

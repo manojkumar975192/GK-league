@@ -1,0 +1,6 @@
+{
+  "name": "GK League",
+  "description": "AI-powered daily general knowledge tournament app for students with open-book speed rankings, AI student ID verification, monthly leaderboards, and point-redeemable rewards.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

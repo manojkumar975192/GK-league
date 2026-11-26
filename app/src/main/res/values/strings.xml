@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">GK League</string>
+    <string name="auth_tagline">தமிழ் மாணவர்களுக்கான தினசரி AI பொது அறிவு போட்டி</string>
+    <string name="auth_subtitle">50 வினாக்கள் • 25 நிமிடம் • தேர்ச்சி மதிப்பெண் 35 • தவறான விடைக்கு -0.25 எதிர்மறை மதிப்பெண்!</string>
+    <string name="auth_google_button">Google மூலம் உள்நுழையவும்</string>
+    <string name="auth_rule_open_book">திறந்த புத்தக கற்றல்</string>
+    <string name="auth_rule_speed">முதல் சமர்ப்பிப்பு முன்னுரிமை</string>
+    <string name="auth_rule_rewards">மாதாந்திர பரிசுகள்</string>
+    <string name="id_verify_title">மாணவர் அடையாள அட்டை சரிபார்ப்பு</string>
+    <string name="id_verify_subtitle">கணக்குப் பாதுகாப்பிற்காக உங்கள் மாணவர் அடையாள அட்டையின் படத்தைப் பதிவேற்றவும். Gemini AI உடனடியாக சரிபார்க்கும்; புகைப்படம் வெளிப்புறத்தில் சேமிக்கப்படாது.</string>
+    <string name="id_verify_pick_button">மாணவர் ID படத்தைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="id_verify_scanning">Gemini AI அடையாள அட்டையைப் படிக்கிறது…</string>
+    <string name="id_verify_confirm_button">உறுதிசெய்து மாணவர் அட்டை பெறுக</string>
+    <string name="nav_arena">போட்டி</string>
+    <string name="nav_ranks">தரவரிசை</string>
+    <string name="nav_stats">திறன்</string>
+    <string name="nav_rewards">பரிசுகள்</string>
+    <string name="arena_open_book_rule">விதிமுறை: 50 வினாக்கள் • 25 நிமிடம் • தேர்ச்சி: 35 • தவறான விடை: -0.25 • முதல் 10 இடம்: 50 புள்ளி, 11–20: 20, 21–30: 10, பிறர்: 5, தோல்வி: 0.</string>
+    <string name="arena_start_tournament">இன்றைய 50 வினா தேர்வைத் தொடங்கு</string>
+    <string name="arena_view_results">இன்றைய முடிவைப் பார்</string>
+    <string name="arena_practice_title">AI பயிற்சி வினாக்கள்</string>
+    <string name="leaderboard_daily">இன்றைய வேகப் பட்டியல்</string>
+    <string name="leaderboard_monthly">மாதாந்திர முன்னணி</string>
+    <string name="stats_ai_coach_button">AI படிப்பு வழிகாட்டியைப் பெறுக</string>
+    <string name="rewards_watch_ad_title">விளம்பரம் பார்த்து +25 புள்ளிகள் பெறுக</string>
+    <string name="rewards_claim_button">பரிசைப் பெறுக</string>
+    <string name="rewards_my_claims">எனது பரிசுகள் &amp; சான்றிதழ்கள்</string>
+    <string name="ad_label_sponsored">விளம்பரம்</string>
+</resources>
